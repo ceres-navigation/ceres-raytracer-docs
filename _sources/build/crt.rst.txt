@@ -1,0 +1,69 @@
+crt package
+===========
+
+Submodules
+----------
+
+crt.cameras module
+------------------
+
+.. automodule:: crt.cameras
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+crt.entity module
+-----------------
+
+.. automodule:: crt.entity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+crt.lights module
+-----------------
+
+.. automodule:: crt.lights
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+crt.passes module
+-----------------
+
+.. automodule:: crt.passes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+crt.render module
+-----------------
+
+.. automodule:: crt.render
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+crt.rotations module
+--------------------
+
+.. automodule:: crt.rotations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+crt.static module
+-----------------
+
+.. automodule:: crt.static
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: crt
+   :members:
+   :undoc-members:
+   :show-inheritance:
