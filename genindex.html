@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; CERES Ray Tracer v0.5a2 documentation</title>
+  <title>Index &mdash; CERES Ray Tracer v0.6a documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/license_info.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -24,7 +25,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> CERES Ray Tracer
+            <a href="index.html">
+            <img src="_static/ceres_white_long.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -34,9 +36,41 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="build/modules.html">crt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos.html">Demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ceres_rt.html">Python API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/entity.html">Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cameras.html">Cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/cameras/pinhole_camera.html">Pinhole Camera</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/lights.html">Lights</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/lights/point_light.html">Point Light</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/lights/square_light.html">Square Light</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/rendering.html">Dynamic Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/body_fixed.html">Body Fixed Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/body_fixed/body_fixed_entity.html">Body Fixed Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/body_fixed/body_fixed_group.html">Body Fixed Group</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/rotations.html">Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/rigid_body.html">Rigid Body</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ceres-navigation/ceres-raytracer">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/ceres-raytracer">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ceresnavigation.org">Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
         </div>
@@ -49,7 +83,7 @@
       </nav>
 
       <div class="wy-nav-content">
-        <div class="rst-content">
+        <div class="rst-content style-external-links">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
@@ -66,105 +100,181 @@
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
- <a href="#C"><strong>C</strong></a>
- | <a href="#D"><strong>D</strong></a>
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
  | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  
 </div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.abcorr">abcorr (crt.body_fixed.BodyFixedEntity attribute)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.abcorr">(crt.body_fixed.BodyFixedGroup attribute)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.abcorr">(crt.cameras.PinholeCamera attribute)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.abcorr">(crt.Entity attribute)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.abcorr">(crt.lights.PointLight attribute)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.abcorr">(crt.lights.SquareLight attribute)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.abcorr">(crt.RigidBody attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity">BodyFixedEntity (class in crt.body_fixed)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup">BodyFixedGroup (class in crt.body_fixed)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    crt
-
-      <ul>
-        <li><a href="build/crt.html#module-crt">module</a>
+      <li><a href="modules/cameras.html#crt.cameras.Camera">Camera (class in crt.cameras)</a>
 </li>
-      </ul></li>
-      <li>
-    crt.cameras
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.color">color (crt.body_fixed.BodyFixedEntity attribute)</a>
 
       <ul>
-        <li><a href="build/crt.html#module-crt.cameras">module</a>
-</li>
-      </ul></li>
-      <li>
-    crt.entity
-
-      <ul>
-        <li><a href="build/crt.html#module-crt.entity">module</a>
-</li>
-      </ul></li>
-      <li>
-    crt.lights
-
-      <ul>
-        <li><a href="build/crt.html#module-crt.lights">module</a>
+        <li><a href="modules/entity.html#crt.Entity.color">(crt.Entity attribute)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    crt.passes
+    crt.rendering
 
       <ul>
-        <li><a href="build/crt.html#module-crt.passes">module</a>
-</li>
-      </ul></li>
-      <li>
-    crt.render
-
-      <ul>
-        <li><a href="build/crt.html#module-crt.render">module</a>
+        <li><a href="modules/rendering.html#module-crt.rendering">module</a>
 </li>
       </ul></li>
       <li>
     crt.rotations
 
       <ul>
-        <li><a href="build/crt.html#module-crt.rotations">module</a>
+        <li><a href="modules/rotations.html#module-crt.rotations">module</a>
 </li>
       </ul></li>
-      <li>
-    crt.static
-
-      <ul>
-        <li><a href="build/crt.html#module-crt.static">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="D">D</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.passes.depth_pass">depth_pass() (in module crt.passes)</a>
-</li>
   </ul></td>
 </tr></table>
 
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.entity.Entity">Entity (class in crt.entity)</a>
+      <li><a href="modules/entity.html#crt.Entity">Entity (class in crt)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.rotations.euler_to_rotmat">euler_to_rotmat() (in module crt.rotations)</a>
+      <li><a href="modules/rotations.html#crt.rotations.euler_to_rotmat">euler_to_rotmat() (in module crt.rotations)</a>
 </li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.focal_length">focal_length (crt.cameras.PinholeCamera attribute)</a>
+</li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.frame">frame (crt.body_fixed.BodyFixedEntity attribute)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.frame">(crt.body_fixed.BodyFixedGroup attribute)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.frame">(crt.cameras.PinholeCamera attribute)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.frame">(crt.Entity attribute)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.frame">(crt.lights.PointLight attribute)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.frame">(crt.lights.SquareLight attribute)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.frame">(crt.RigidBody attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.geometry_path">geometry_path (crt.body_fixed.BodyFixedEntity attribute)</a>
+
+      <ul>
+        <li><a href="modules/entity.html#crt.Entity.geometry_path">(crt.Entity attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.geometry_type">geometry_type (crt.body_fixed.BodyFixedEntity attribute)</a>
+
+      <ul>
+        <li><a href="modules/entity.html#crt.Entity.geometry_type">(crt.Entity attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/cameras.html#crt.cameras.Camera.get_fov">get_fov() (crt.cameras.Camera method)</a>
+
+      <ul>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.get_fov">(crt.cameras.PinholeCamera method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.passes.instance_pass">instance_pass() (in module crt.passes)</a>
+      <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.instance_pass">instance_pass() (crt.body_fixed.BodyFixedGroup method)</a>
+
+      <ul>
+        <li><a href="modules/rendering.html#crt.rendering.instance_pass">(in module crt.rendering)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/lights.html#crt.lights.Light.intensity">intensity (crt.lights.Light attribute)</a>
+
+      <ul>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.intensity">(crt.lights.PointLight attribute)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.intensity">(crt.lights.SquareLight attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.intersection_pass">intersection_pass() (crt.body_fixed.BodyFixedGroup method)</a>
+
+      <ul>
+        <li><a href="modules/rendering.html#crt.rendering.intersection_pass">(in module crt.rendering)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/lights.html#crt.lights.Light">Light (class in crt.lights)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -172,25 +282,15 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="license.html#index-0">MIT License</a>, <a href="license.html#index-1">[1]</a>
+</li>
       <li>
     module
 
       <ul>
-        <li><a href="build/crt.html#module-crt">crt</a>
+        <li><a href="modules/rendering.html#module-crt.rendering">crt.rendering</a>
 </li>
-        <li><a href="build/crt.html#module-crt.cameras">crt.cameras</a>
-</li>
-        <li><a href="build/crt.html#module-crt.entity">crt.entity</a>
-</li>
-        <li><a href="build/crt.html#module-crt.lights">crt.lights</a>
-</li>
-        <li><a href="build/crt.html#module-crt.passes">crt.passes</a>
-</li>
-        <li><a href="build/crt.html#module-crt.render">crt.render</a>
-</li>
-        <li><a href="build/crt.html#module-crt.rotations">crt.rotations</a>
-</li>
-        <li><a href="build/crt.html#module-crt.static">crt.static</a>
+        <li><a href="modules/rotations.html#module-crt.rotations">crt.rotations</a>
 </li>
       </ul></li>
   </ul></td>
@@ -199,39 +299,133 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.passes.normal_pass">normal_pass() (in module crt.passes)</a>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.name">name (crt.body_fixed.BodyFixedEntity attribute)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.name">(crt.body_fixed.BodyFixedGroup attribute)</a>
 </li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.name">(crt.cameras.PinholeCamera attribute)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.name">(crt.Entity attribute)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.name">(crt.lights.PointLight attribute)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.name">(crt.lights.SquareLight attribute)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.name">(crt.RigidBody attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.normal_pass">normal_pass() (crt.body_fixed.BodyFixedGroup method)</a>
+
+      <ul>
+        <li><a href="modules/rendering.html#crt.rendering.normal_pass">(in module crt.rendering)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.origin">origin (crt.body_fixed.BodyFixedEntity attribute)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.origin">(crt.body_fixed.BodyFixedGroup attribute)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.origin">(crt.cameras.PinholeCamera attribute)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.origin">(crt.Entity attribute)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.origin">(crt.lights.PointLight attribute)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.origin">(crt.lights.SquareLight attribute)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.origin">(crt.RigidBody attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.cameras.PinholeCamera">PinholeCamera (class in crt.cameras)</a>
+      <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera">PinholeCamera (class in crt.cameras)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.lights.PointLight">PointLight (class in crt.lights)</a>
+      <li><a href="modules/lights/point_light.html#crt.lights.PointLight">PointLight (class in crt.lights)</a>
 </li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.position">position (crt.body_fixed.BodyFixedEntity attribute)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.position">(crt.body_fixed.BodyFixedGroup attribute)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.position">(crt.cameras.PinholeCamera attribute)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.position">(crt.Entity attribute)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.position">(crt.lights.PointLight attribute)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.position">(crt.lights.SquareLight attribute)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.position">(crt.RigidBody attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.static.StaticScene.render">render() (crt.static.StaticScene method)</a>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.ref">ref (crt.body_fixed.BodyFixedEntity attribute)</a>
 
       <ul>
-        <li><a href="build/crt.html#crt.render.render">(in module crt.render)</a>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.ref">(crt.body_fixed.BodyFixedGroup attribute)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.ref">(crt.cameras.PinholeCamera attribute)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.ref">(crt.Entity attribute)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.ref">(crt.lights.PointLight attribute)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.ref">(crt.lights.SquareLight attribute)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.ref">(crt.RigidBody attribute)</a>
 </li>
       </ul></li>
+      <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.render">render() (crt.body_fixed.BodyFixedGroup method)</a>
+
+      <ul>
+        <li><a href="modules/rendering.html#crt.rendering.render">(in module crt.rendering)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.resolution">resolution (crt.cameras.PinholeCamera attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.rotations.rotation_1">rotation_1() (in module crt.rotations)</a>
+      <li><a href="modules/rigid_body.html#crt.RigidBody">RigidBody (class in crt)</a>
 </li>
-      <li><a href="build/crt.html#crt.rotations.rotation_2">rotation_2() (in module crt.rotations)</a>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.rotation">rotation (crt.body_fixed.BodyFixedEntity attribute)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.rotation">(crt.body_fixed.BodyFixedGroup attribute)</a>
 </li>
-      <li><a href="build/crt.html#crt.rotations.rotation_3">rotation_3() (in module crt.rotations)</a>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.rotation">(crt.cameras.PinholeCamera attribute)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.rotation">(crt.Entity attribute)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.rotation">(crt.lights.PointLight attribute)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.rotation">(crt.lights.SquareLight attribute)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.rotation">(crt.RigidBody attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/rotations.html#crt.rotations.rotation_1">rotation_1() (in module crt.rotations)</a>
+</li>
+      <li><a href="modules/rotations.html#crt.rotations.rotation_2">rotation_2() (in module crt.rotations)</a>
+</li>
+      <li><a href="modules/rotations.html#crt.rotations.rotation_3">rotation_3() (in module crt.rotations)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -239,41 +433,155 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.cameras.PinholeCamera.set_pose">set_pose() (crt.cameras.PinholeCamera method)</a>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.scale">scale (crt.body_fixed.BodyFixedEntity attribute)</a>
 
       <ul>
-        <li><a href="build/crt.html#crt.entity.Entity.set_pose">(crt.entity.Entity method)</a>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.scale">(crt.body_fixed.BodyFixedGroup attribute)</a>
 </li>
-        <li><a href="build/crt.html#crt.lights.SquareLight.set_pose">(crt.lights.SquareLight method)</a>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.scale">(crt.cameras.PinholeCamera attribute)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.scale">(crt.Entity attribute)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.scale">(crt.lights.PointLight attribute)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.scale">(crt.lights.SquareLight attribute)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.scale">(crt.RigidBody attribute)</a>
 </li>
       </ul></li>
-      <li><a href="build/crt.html#crt.cameras.PinholeCamera.set_position">set_position() (crt.cameras.PinholeCamera method)</a>
+      <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.sensor_size">sensor_size (crt.cameras.PinholeCamera attribute)</a>
+</li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.set_pose">set_pose() (crt.body_fixed.BodyFixedEntity method)</a>
 
       <ul>
-        <li><a href="build/crt.html#crt.entity.Entity.set_position">(crt.entity.Entity method)</a>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.set_pose">(crt.body_fixed.BodyFixedGroup method)</a>
 </li>
-        <li><a href="build/crt.html#crt.lights.PointLight.set_position">(crt.lights.PointLight method)</a>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.set_pose">(crt.cameras.PinholeCamera method)</a>
 </li>
-        <li><a href="build/crt.html#crt.lights.SquareLight.set_position">(crt.lights.SquareLight method)</a>
+        <li><a href="modules/entity.html#crt.Entity.set_pose">(crt.Entity method)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.set_pose">(crt.lights.PointLight method)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.set_pose">(crt.lights.SquareLight method)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.set_pose">(crt.RigidBody method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.set_position">set_position() (crt.body_fixed.BodyFixedEntity method)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.set_position">(crt.body_fixed.BodyFixedGroup method)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.set_position">(crt.cameras.PinholeCamera method)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.set_position">(crt.Entity method)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.set_position">(crt.lights.PointLight method)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.set_position">(crt.lights.SquareLight method)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.set_position">(crt.RigidBody method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.set_rotation">set_rotation() (crt.body_fixed.BodyFixedEntity method)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.set_rotation">(crt.body_fixed.BodyFixedGroup method)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.set_rotation">(crt.cameras.PinholeCamera method)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.set_rotation">(crt.Entity method)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.set_rotation">(crt.lights.PointLight method)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.set_rotation">(crt.lights.SquareLight method)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.set_rotation">(crt.RigidBody method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.set_scale">set_scale() (crt.body_fixed.BodyFixedEntity method)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.set_scale">(crt.body_fixed.BodyFixedGroup method)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.set_scale">(crt.cameras.PinholeCamera method)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.set_scale">(crt.Entity method)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.set_scale">(crt.lights.PointLight method)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.set_scale">(crt.lights.SquareLight method)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.set_scale">(crt.RigidBody method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="build/crt.html#crt.cameras.PinholeCamera.set_rotation">set_rotation() (crt.cameras.PinholeCamera method)</a>
+      <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.size">size (crt.lights.SquareLight attribute)</a>
+</li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.smooth_shading">smooth_shading (crt.body_fixed.BodyFixedEntity attribute)</a>
 
       <ul>
-        <li><a href="build/crt.html#crt.entity.Entity.set_rotation">(crt.entity.Entity method)</a>
-</li>
-        <li><a href="build/crt.html#crt.lights.SquareLight.set_rotation">(crt.lights.SquareLight method)</a>
+        <li><a href="modules/entity.html#crt.Entity.smooth_shading">(crt.Entity attribute)</a>
 </li>
       </ul></li>
-      <li><a href="build/crt.html#crt.entity.Entity.set_scale">set_scale() (crt.entity.Entity method)</a>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.spice_pose">spice_pose() (crt.body_fixed.BodyFixedEntity method)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.spice_pose">(crt.body_fixed.BodyFixedGroup method)</a>
 </li>
-      <li><a href="build/crt.html#crt.lights.SquareLight">SquareLight (class in crt.lights)</a>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.spice_pose">(crt.cameras.PinholeCamera method)</a>
 </li>
-      <li><a href="build/crt.html#crt.static.StaticEntity">StaticEntity (class in crt.static)</a>
+        <li><a href="modules/entity.html#crt.Entity.spice_pose">(crt.Entity method)</a>
 </li>
-      <li><a href="build/crt.html#crt.static.StaticScene">StaticScene (class in crt.static)</a>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.spice_pose">(crt.lights.PointLight method)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.spice_pose">(crt.lights.SquareLight method)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.spice_pose">(crt.RigidBody method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.spice_position">spice_position() (crt.body_fixed.BodyFixedEntity method)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.spice_position">(crt.body_fixed.BodyFixedGroup method)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.spice_position">(crt.cameras.PinholeCamera method)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.spice_position">(crt.Entity method)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.spice_position">(crt.lights.PointLight method)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.spice_position">(crt.lights.SquareLight method)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.spice_position">(crt.RigidBody method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/body_fixed/body_fixed_entity.html#crt.body_fixed.BodyFixedEntity.spice_rotation">spice_rotation() (crt.body_fixed.BodyFixedEntity method)</a>
+
+      <ul>
+        <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.spice_rotation">(crt.body_fixed.BodyFixedGroup method)</a>
+</li>
+        <li><a href="modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.spice_rotation">(crt.cameras.PinholeCamera method)</a>
+</li>
+        <li><a href="modules/entity.html#crt.Entity.spice_rotation">(crt.Entity method)</a>
+</li>
+        <li><a href="modules/lights/point_light.html#crt.lights.PointLight.spice_rotation">(crt.lights.PointLight method)</a>
+</li>
+        <li><a href="modules/lights/square_light.html#crt.lights.SquareLight.spice_rotation">(crt.lights.SquareLight method)</a>
+</li>
+        <li><a href="modules/rigid_body.html#crt.RigidBody.spice_rotation">(crt.RigidBody method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/lights/square_light.html#crt.lights.SquareLight">SquareLight (class in crt.lights)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/body_fixed/body_fixed_group.html#crt.body_fixed.BodyFixedGroup.transform_to_body">transform_to_body() (crt.body_fixed.BodyFixedGroup method)</a>
 </li>
   </ul></td>
 </tr></table>

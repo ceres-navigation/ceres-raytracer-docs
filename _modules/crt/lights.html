@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>crt.lights &mdash; CERES Ray Tracer v0.5a2 documentation</title>
+  <title>crt.lights &mdash; CERES Ray Tracer v0.6a documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/license_info.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -24,7 +25,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> CERES Ray Tracer
+            <a href="../../index.html">
+            <img src="../../_static/ceres_white_long.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -34,8 +36,43 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demos.html">Demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ceres_rt.html">Python API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/entity.html">Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/cameras.html">Cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/cameras/pinhole_camera.html">Pinhole Camera</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/lights.html">Lights</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/lights/point_light.html">Point Light</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/lights/square_light.html">Square Light</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rendering.html">Dynamic Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/body_fixed.html">Body Fixed Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/body_fixed/body_fixed_entity.html">Body Fixed Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/body_fixed/body_fixed_group.html">Body Fixed Group</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rotations.html">Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rigid_body.html">Rigid Body</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ceres-navigation/ceres-raytracer">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/ceres-raytracer">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ceresnavigation.org">Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -46,7 +83,7 @@
       </nav>
 
       <div class="wy-nav-content">
-        <div class="rst-content">
+        <div class="rst-content style-external-links">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
@@ -61,41 +98,74 @@
            <div itemprop="articleBody">
              
   <h1>Source code for crt.lights</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">_crt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 
-<div class="viewcode-block" id="PointLight"><a class="viewcode-back" href="../../build/crt.html#crt.lights.PointLight">[docs]</a><span class="k">class</span> <span class="nc">PointLight</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)):</span>
+<span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">ArrayLike</span>
+
+<span class="kn">import</span> <span class="nn">_crt</span>
+<span class="kn">from</span> <span class="nn">crt.rigid_body</span> <span class="kn">import</span> <span class="n">RigidBody</span>
+
+<div class="viewcode-block" id="Light"><a class="viewcode-back" href="../../modules/lights.html#crt.lights.Light">[docs]</a><span class="k">class</span> <span class="nc">Light</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The :class:`Light` abstract base class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">intensity</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Intensity of the light source (:code:`float`)</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="PointLight"><a class="viewcode-back" href="../../modules/lights/point_light.html#crt.lights.PointLight">[docs]</a><span class="k">class</span> <span class="nc">PointLight</span><span class="p">(</span><span class="n">RigidBody</span><span class="p">,</span> <span class="n">Light</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The :class:`PointLight` class is the simplest light model implemented</span>
+
+<span class="sd">    :param intensity: Intensity of the light source</span>
+<span class="sd">    :type intensity: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PointLight</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">intensity</span> <span class="o">=</span> <span class="n">intensity</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Intensity of the light source (:code:`float`)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span> <span class="o">=</span> <span class="n">_crt</span><span class="o">.</span><span class="n">PointLight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intensity</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Corresponding C++ PointLight object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PointLight.set_position"><a class="viewcode-back" href="../../build/crt.html#crt.lights.PointLight.set_position">[docs]</a>    <span class="k">def</span> <span class="nf">set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="SquareLight"><a class="viewcode-back" href="../../build/crt.html#crt.lights.SquareLight">[docs]</a><span class="k">class</span> <span class="nc">SquareLight</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="n">rotation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)):</span>
+<div class="viewcode-block" id="SquareLight"><a class="viewcode-back" href="../../modules/lights/square_light.html#crt.lights.SquareLight">[docs]</a><span class="k">class</span> <span class="nc">SquareLight</span><span class="p">(</span><span class="n">RigidBody</span><span class="p">,</span> <span class="n">Light</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The :class:`SquareLight` class is the simplest area light model implemented</span>
+
+<span class="sd">    :param intensity: Intensity of the light source</span>
+<span class="sd">    :type intensity: float</span>
+<span class="sd">    :param size: Lengths of the sides of the light</span>
+<span class="sd">    :type size: ArrayLike</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intensity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SquareLight</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">intensity</span> <span class="o">=</span> <span class="n">intensity</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Intensity of the light source (:code:`float`)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lengths of the sides of the light (:code:`numpy.ndarray` or shape :code:`(2,)`)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span> <span class="o">=</span> <span class="n">_crt</span><span class="o">.</span><span class="n">SquareLight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intensity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Corresponding C++ SquareLight object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SquareLight.set_position"><a class="viewcode-back" href="../../build/crt.html#crt.lights.SquareLight.set_position">[docs]</a>    <span class="k">def</span> <span class="nf">set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="SquareLight.set_rotation"><a class="viewcode-back" href="../../build/crt.html#crt.lights.SquareLight.set_rotation">[docs]</a>    <span class="k">def</span> <span class="nf">set_rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_rotation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="SquareLight.set_pose"><a class="viewcode-back" href="../../build/crt.html#crt.lights.SquareLight.set_pose">[docs]</a>    <span class="k">def</span> <span class="nf">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">rotation</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

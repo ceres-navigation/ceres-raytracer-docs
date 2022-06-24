@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>crt.cameras &mdash; CERES Ray Tracer v0.5a2 documentation</title>
+  <title>crt.cameras &mdash; CERES Ray Tracer v0.6a documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/license_info.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -24,7 +25,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> CERES Ray Tracer
+            <a href="../../index.html">
+            <img src="../../_static/ceres_white_long.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -34,8 +36,43 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demos.html">Demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ceres_rt.html">Python API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/entity.html">Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/cameras.html">Cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/cameras/pinhole_camera.html">Pinhole Camera</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/lights.html">Lights</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/lights/point_light.html">Point Light</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/lights/square_light.html">Square Light</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rendering.html">Dynamic Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/body_fixed.html">Body Fixed Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/body_fixed/body_fixed_entity.html">Body Fixed Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/body_fixed/body_fixed_group.html">Body Fixed Group</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rotations.html">Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rigid_body.html">Rigid Body</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ceres-navigation/ceres-raytracer">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/ceres-raytracer">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ceresnavigation.org">Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -46,7 +83,7 @@
       </nav>
 
       <div class="wy-nav-content">
-        <div class="rst-content">
+        <div class="rst-content style-external-links">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
@@ -61,35 +98,75 @@
            <div itemprop="articleBody">
              
   <h1>Source code for crt.cameras</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">_crt</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">_crt</span>
+<span class="kn">from</span> <span class="nn">crt.rigid_body</span> <span class="kn">import</span> <span class="n">RigidBody</span>
+<span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">ArrayLike</span>
+
+<div class="viewcode-block" id="Camera"><a class="viewcode-back" href="../../modules/cameras.html#crt.cameras.Camera">[docs]</a><span class="k">class</span> <span class="nc">Camera</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The :class:`Camera` abstract base class </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Camera.get_fov"><a class="viewcode-back" href="../../modules/cameras.html#crt.cameras.Camera.get_fov">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_fov</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">return</span></div></div>
 
 
-<div class="viewcode-block" id="PinholeCamera"><a class="viewcode-back" href="../../build/crt.html#crt.cameras.PinholeCamera">[docs]</a><span class="k">class</span> <span class="nc">PinholeCamera</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">focal_length</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">sensor_size</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)):</span>
+<div class="viewcode-block" id="PinholeCamera"><a class="viewcode-back" href="../../modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera">[docs]</a><span class="k">class</span> <span class="nc">PinholeCamera</span><span class="p">(</span><span class="n">RigidBody</span><span class="p">,</span> <span class="n">Camera</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The :class:`PinholeCamera` class is the simplest camera model implemented</span>
+
+<span class="sd">    :param focal_length: Focal length of the camera</span>
+<span class="sd">    :type focal_length: float</span>
+<span class="sd">    :param resolution: Resolution of camera</span>
+<span class="sd">    :type resolution: ArrayLike</span>
+<span class="sd">    :param sensor_size: Size of the camera&#39;s sensor</span>
+<span class="sd">    :type sensor_size: ArrayLike</span>
+<span class="sd">    :param z_positive: Flag for if the camera&#39;s boresight is aligned with positive z-axis |default| :code:`False`</span>
+<span class="sd">    :type z_positive: bool, optional</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">focal_length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">resolution</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">sensor_size</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> 
+                 <span class="n">z_positive</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        
+        <span class="nb">super</span><span class="p">(</span><span class="n">PinholeCamera</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">focal_length</span> <span class="o">=</span> <span class="n">focal_length</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="n">resolution</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sensor_size</span> <span class="o">=</span> <span class="n">sensor_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Focal length of the camera (:code:`float`)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span> <span class="o">=</span> <span class="n">_crt</span><span class="o">.</span><span class="n">PinholeCamera</span><span class="p">(</span><span class="n">focal_length</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">sensor_size</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resolution</span>   <span class="o">=</span> <span class="n">resolution</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resolution of the camera (:code:`numpy.array` of shape :code:`(2,)`)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PinholeCamera.set_position"><a class="viewcode-back" href="../../build/crt.html#crt.cameras.PinholeCamera.set_position">[docs]</a>    <span class="k">def</span> <span class="nf">set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensor_size</span>  <span class="o">=</span> <span class="n">sensor_size</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sensor size of the camera (:code:`numpy.array` of shape :code:`(2,)`)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PinholeCamera.set_rotation"><a class="viewcode-back" href="../../build/crt.html#crt.cameras.PinholeCamera.set_rotation">[docs]</a>    <span class="k">def</span> <span class="nf">set_rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_rotation</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span> <span class="o">=</span> <span class="n">_crt</span><span class="o">.</span><span class="n">PinholeCamera</span><span class="p">(</span><span class="n">focal_length</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">sensor_size</span><span class="p">,</span><span class="n">z_positive</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Corresponding C++ PinholeCamera object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PinholeCamera.set_pose"><a class="viewcode-back" href="../../build/crt.html#crt.cameras.PinholeCamera.set_pose">[docs]</a>    <span class="k">def</span> <span class="nf">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">rotation</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_pose</span><span class="p">(</span><span class="n">position</span><span class="p">,</span><span class="n">rotation</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PinholeCamera.get_fov"><a class="viewcode-back" href="../../modules/cameras/pinhole_camera.html#crt.cameras.PinholeCamera.get_fov">[docs]</a>    <span class="k">def</span> <span class="nf">get_fov</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degrees</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate and return the angular field of view of the defined camera model</span>
+
+<span class="sd">        :param degrees: Flag for if the returned field of view has units of degrees |default| :code:`True`</span>
+<span class="sd">        :type degrees: bool, optional</span>
+<span class="sd">        :return: The calculated angular field of view(s)</span>
+<span class="sd">        :rtype: np.ndarray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">degrees</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor_size</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">focal_length</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor_size</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">focal_length</span><span class="p">)</span></div></div>
     
         
 </pre></div>

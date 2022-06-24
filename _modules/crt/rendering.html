@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crt.rendering &mdash; CERES Ray Tracer v0.6a documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/license_info.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/ceres_white_long.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demos.html">Demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ceres_rt.html">Python API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/entity.html">Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/cameras.html">Cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/cameras/pinhole_camera.html">Pinhole Camera</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/lights.html">Lights</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/lights/point_light.html">Point Light</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/lights/square_light.html">Square Light</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rendering.html">Dynamic Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/body_fixed.html">Body Fixed Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/body_fixed/body_fixed_entity.html">Body Fixed Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/body_fixed/body_fixed_group.html">Body Fixed Group</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rotations.html">Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rigid_body.html">Rigid Body</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ceres-navigation/ceres-raytracer">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/ceres-raytracer">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ceresnavigation.org">Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CERES Ray Tracer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>crt.rendering</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for crt.rendering</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">_crt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">crt</span> <span class="kn">import</span> <span class="n">Entity</span>
+<span class="kn">from</span> <span class="nn">crt.cameras</span> <span class="kn">import</span> <span class="n">Camera</span>
+<span class="kn">from</span> <span class="nn">crt.lights</span> <span class="kn">import</span> <span class="n">Light</span>
+
+<span class="kn">from</span> <span class="nn">crt._pybind_convert</span> <span class="kn">import</span> <span class="n">validate_lights</span><span class="p">,</span> <span class="n">validate_entities</span>
+
+<div class="viewcode-block" id="render"><a class="viewcode-back" href="../../modules/rendering.html#crt.rendering.render">[docs]</a><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">lights</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Light</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Light</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Light</span><span class="p">,</span><span class="o">...</span><span class="p">]],</span>
+           <span class="n">entities</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Entity</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Entity</span><span class="p">,</span><span class="o">...</span><span class="p">]],</span> 
+           <span class="n">min_samples</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_samples</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">noise_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">num_bounces</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render a scene with dynamic entities.  Prior to rendering, a Bounding Volume Heirarchy will be built</span>
+<span class="sd">    from scratch for the entire scene</span>
+
+<span class="sd">    :param camera: Camera model to be used for generatring rays</span>
+<span class="sd">    :type camera: Camera</span>
+<span class="sd">    :param lights: Light(s) to be used for rendering</span>
+<span class="sd">    :type lights: Union[Light, List[Light], Tuple[Light,...]]</span>
+<span class="sd">    :param entities: Entity/Entities to be rendered</span>
+<span class="sd">    :type entities: Union[Entity, List[Entity], Tuple[Entity,...]]</span>
+<span class="sd">    :param min_samples: Minimum number of ray samples per pixel |default| :code:`1`</span>
+<span class="sd">    :type min_samples: int, optional</span>
+<span class="sd">    :param max_samples: Maximum number of ray samples per pixel |default| :code:`1`</span>
+<span class="sd">    :type max_samples: int, optional</span>
+<span class="sd">    :param noise_threshold: Pixel noise threshold for adaptive sampling |default| :code:`1`</span>
+<span class="sd">    :type noise_threshold: float, optional</span>
+<span class="sd">    :param num_bounces: Number of ray bounces |default| :code:`1`</span>
+<span class="sd">    :type num_bounces: int, optional</span>
+<span class="sd">    :return: Rendered image</span>
+<span class="sd">    :rtype: np.ndarray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lights_cpp</span> <span class="o">=</span> <span class="n">validate_lights</span><span class="p">(</span><span class="n">lights</span><span class="p">)</span>
+
+    <span class="n">entities_cpp</span> <span class="o">=</span> <span class="n">validate_entities</span><span class="p">(</span><span class="n">entities</span><span class="p">)</span>
+
+    <span class="n">image</span> <span class="o">=</span> <span class="n">_crt</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">_cpp</span><span class="p">,</span> <span class="n">lights_cpp</span><span class="p">,</span> <span class="n">entities_cpp</span><span class="p">,</span>
+                        <span class="n">min_samples</span><span class="p">,</span> <span class="n">max_samples</span><span class="p">,</span> <span class="n">noise_threshold</span><span class="p">,</span> <span class="n">num_bounces</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">image</span></div>
+
+<div class="viewcode-block" id="normal_pass"><a class="viewcode-back" href="../../modules/rendering.html#crt.rendering.normal_pass">[docs]</a><span class="k">def</span> <span class="nf">normal_pass</span><span class="p">(</span><span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">entities</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Entity</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Entity</span><span class="p">,</span><span class="o">...</span><span class="p">]],</span>
+                <span class="n">return_image</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+                
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform a normal pass with dynamic entities</span>
+
+<span class="sd">    :param camera: Camera model to be used for generating rays</span>
+<span class="sd">    :type camera: Camera</span>
+<span class="sd">    :param entities: Entity/Entities against which ray tracing is performed</span>
+<span class="sd">    :type entities: Union[Entity, List[Entity], Tuple[Entity,...]]</span>
+<span class="sd">    :param return_image: Flag to return an image representation of the intersected normals |default| :code:`False`</span>
+<span class="sd">    :type return_image: bool, optional</span>
+<span class="sd">    :return: An array of the intersected normals.  If :code:`return_image` is set to :code:`True`, then an image</span>
+<span class="sd">             where the normal XYZ values are represented using RGB color values is returned as a second output.</span>
+<span class="sd">    :rtype: Union[np.ndarray, Tuple(np.ndarray, np.ndarray)]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">entities_cpp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+        <span class="n">entities_cpp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">_cpp</span><span class="p">)</span>
+
+    <span class="n">normals</span> <span class="o">=</span> <span class="n">_crt</span><span class="o">.</span><span class="n">normal_pass</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">_cpp</span><span class="p">,</span> <span class="n">entities_cpp</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">return_image</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="mi">255</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">normals</span><span class="p">,</span> <span class="n">image</span>
+
+    <span class="k">return</span> <span class="n">normals</span></div>
+
+<div class="viewcode-block" id="intersection_pass"><a class="viewcode-back" href="../../modules/rendering.html#crt.rendering.intersection_pass">[docs]</a><span class="k">def</span> <span class="nf">intersection_pass</span><span class="p">(</span><span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">entities</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Entity</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Entity</span><span class="p">,</span><span class="o">...</span><span class="p">]],</span>
+                      <span class="n">return_image</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform a normal pass with dynamic entities</span>
+
+<span class="sd">    :param camera: Camera model to be used for generating rays</span>
+<span class="sd">    :type camera: Camera</span>
+<span class="sd">    :param entities: Entity/Entities against which ray tracing is performed</span>
+<span class="sd">    :type entities: Union[Entity, List[Entity], Tuple[Entity,...]]</span>
+<span class="sd">    :param return_image: Flag to return an image representation of the intersection depth |default| :code:`False`</span>
+<span class="sd">    :type return_image: bool, optional</span>
+<span class="sd">    :return: An array of the intersected points.  If :code:`return_image` is set to :code:`True`, then an image</span>
+<span class="sd">             where the distance to each intersected point is represented via pixel intensity is returned </span>
+<span class="sd">             as a second output.</span>
+<span class="sd">    :rtype: Union[np.ndarray, Tuple(np.ndarray, np.ndarray)]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">entities_cpp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+        <span class="n">entities_cpp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">_cpp</span><span class="p">)</span>
+
+    <span class="n">intersections</span> <span class="o">=</span> <span class="n">_crt</span><span class="o">.</span><span class="n">intersection_pass</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">_cpp</span><span class="p">,</span> <span class="n">entities_cpp</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">return_image</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">intersections</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">intersections</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">intersections</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="mi">255</span><span class="o">*</span><span class="n">image</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">intersections</span><span class="p">,</span> <span class="n">image</span>
+
+    <span class="k">return</span> <span class="n">intersections</span></div>
+
+<div class="viewcode-block" id="instance_pass"><a class="viewcode-back" href="../../modules/rendering.html#crt.rendering.instance_pass">[docs]</a><span class="k">def</span> <span class="nf">instance_pass</span><span class="p">(</span><span class="n">camera</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">entities</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Entity</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Entity</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Entity</span><span class="p">,</span><span class="o">...</span><span class="p">]],</span> 
+                  <span class="n">return_image</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform an instance segmentation pass with dynamic entities</span>
+
+<span class="sd">    :param camera: Camera model to be used for generating rays</span>
+<span class="sd">    :type camera: Camera</span>
+<span class="sd">    :param entities: Entity/Entities against which ray tracing is performed</span>
+<span class="sd">    :type entities: Union[Entity, List[Entity], Tuple[Entity,...]]</span>
+<span class="sd">    :param return_image: Flag to return an image representation of the instances |default| :code:`False`</span>
+<span class="sd">    :type return_image: bool, optional</span>
+<span class="sd">    :return: An array unique id codes for each unique entity intersected.  If :code:`return_image` is set </span>
+<span class="sd">             to :code:`True`, then an image where each unique id is represented with a unique RGB color </span>
+<span class="sd">             is returned as a second output.</span>
+<span class="sd">    :rtype: Union[np.ndarray, Tuple(np.ndarray, np.ndarray)]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">entities_cpp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+        <span class="n">entities_cpp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">_cpp</span><span class="p">)</span>
+
+    <span class="n">instances</span> <span class="o">=</span> <span class="n">_crt</span><span class="o">.</span><span class="n">instance_pass</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">_cpp</span><span class="p">,</span> <span class="n">entities_cpp</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">return_image</span><span class="p">:</span>
+        <span class="n">unique_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">unique_ids</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">instances</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">instances</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">unique_ids</span><span class="p">):</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">instances</span> <span class="o">==</span> <span class="nb">id</span>
+            <span class="n">image</span><span class="p">[</span><span class="n">mask</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[:,</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">instances</span><span class="p">,</span> <span class="n">image</span>
+
+    <span class="k">return</span> <span class="n">instances</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Chris Gnam.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

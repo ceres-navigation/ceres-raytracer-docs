@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entity &mdash; CERES Ray Tracer v0.6a documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/license_info.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cameras" href="cameras.html" />
+    <link rel="prev" title="Python API Reference" href="../ceres_rt.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html">
+            <img src="../_static/ceres_white_long.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demos.html">Demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../ceres_rt.html">Python API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cameras.html">Cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cameras/pinhole_camera.html">Pinhole Camera</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lights.html">Lights</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lights/point_light.html">Point Light</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lights/square_light.html">Square Light</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rendering.html">Dynamic Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="body_fixed.html">Body Fixed Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="body_fixed/body_fixed_entity.html">Body Fixed Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="body_fixed/body_fixed_group.html">Body Fixed Group</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rotations.html">Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rigid_body.html">Rigid Body</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ceres-navigation/ceres-raytracer">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/ceres-raytracer">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ceresnavigation.org">Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CERES Ray Tracer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../ceres_rt.html">Python API Reference</a> &raquo;</li>
+      <li>Entity</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/entity.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="entity">
+<h1>Entity<a class="headerlink" href="#entity" title="Permalink to this headline"></a></h1>
+<p><strong>Attributes Summary</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.scale" title="crt.RigidBody.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.scale</span></code></a></p></td>
+<td><p>Scale of the body (<code class="code docutils literal notranslate"><span class="pre">float</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.position" title="crt.RigidBody.position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.position</span></code></a></p></td>
+<td><p>Position of the body (<code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of shape <code class="code docutils literal notranslate"><span class="pre">(3,)</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.rotation" title="crt.RigidBody.rotation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.rotation</span></code></a></p></td>
+<td><p>Rotation of the body (<code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of shape <code class="code docutils literal notranslate"><span class="pre">(3,3)</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.name" title="crt.RigidBody.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.name</span></code></a></p></td>
+<td><p>NAIF name or ID code for the body (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.frame" title="crt.RigidBody.frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.frame</span></code></a></p></td>
+<td><p>NAIF reference frame name for the body (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.origin" title="crt.RigidBody.origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.origin</span></code></a></p></td>
+<td><p>NAIF name or ID code for the reference frame origin (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.ref" title="crt.RigidBody.ref"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.ref</span></code></a></p></td>
+<td><p>NAIF reference frame name (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.abcorr" title="crt.RigidBody.abcorr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.abcorr</span></code></a></p></td>
+<td><p>Aberration correction flag (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods Summary</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.set_scale" title="crt.RigidBody.set_scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.set_scale</span></code></a></p></td>
+<td><p>Set a new <a class="reference internal" href="rigid_body.html#crt.RigidBody.scale" title="crt.RigidBody.scale"><code class="xref py py-attr docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.set_position" title="crt.RigidBody.set_position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.set_position</span></code></a></p></td>
+<td><p>Set a new <a class="reference internal" href="rigid_body.html#crt.RigidBody.position" title="crt.RigidBody.position"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.set_rotation" title="crt.RigidBody.set_rotation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.set_rotation</span></code></a></p></td>
+<td><p>Set a new <a class="reference internal" href="rigid_body.html#crt.RigidBody.rotation" title="crt.RigidBody.rotation"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rotation</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.set_pose" title="crt.RigidBody.set_pose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.set_pose</span></code></a></p></td>
+<td><p>Set both a new <a class="reference internal" href="rigid_body.html#crt.RigidBody.position" title="crt.RigidBody.position"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> and <a class="reference internal" href="rigid_body.html#crt.RigidBody.rotation" title="crt.RigidBody.rotation"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rotation</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.spice_position" title="crt.RigidBody.spice_position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.spice_position</span></code></a></p></td>
+<td><p>Set new position for a given ephemeris time using SPICE</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.spice_rotation" title="crt.RigidBody.spice_rotation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.spice_rotation</span></code></a></p></td>
+<td><p>Set new rotation for a given ephemeris time using SPICE</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rigid_body.html#crt.RigidBody.spice_pose" title="crt.RigidBody.spice_pose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crt.RigidBody.spice_pose</span></code></a></p></td>
+<td><p>Set both a new position and rotation for a given ephemeris time using SPICE</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="crt.Entity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">crt.</span></span><span class="sig-name descname"><span class="pre">Entity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometry_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'obj'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_shading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/crt/entity.html#Entity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crt.Entity" title="Permalink to this definition"></a></dt>
+<dd><p>The <a class="reference internal" href="#crt.Entity" title="crt.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a> class stores all mesh, material, and texture information for a body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geometry_path</strong> (<em>str</em>) – Path to the mesh geometry to be loaded</p></li>
+<li><p><strong>color</strong> (<em>ArrayLike</em><em>, </em><em>optional</em>) – The RGB color code of the geometry <div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">[1,1,1]</span></code></p></li>
+<li><p><strong>geometry_type</strong> (<em>str</em><em>, </em><em>optional</em>) – The format of the mesh geoemtry provided <div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">&quot;obj&quot;</span></code></p></li>
+<li><p><strong>smooth_shading</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag to enable smooth shading via vertex normal interpolation <div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.geometry_path">
+<span class="sig-name descname"><span class="pre">geometry_path</span></span><a class="headerlink" href="#crt.Entity.geometry_path" title="Permalink to this definition"></a></dt>
+<dd><p>Path to the geometry (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.geometry_type">
+<span class="sig-name descname"><span class="pre">geometry_type</span></span><a class="headerlink" href="#crt.Entity.geometry_type" title="Permalink to this definition"></a></dt>
+<dd><p>Format of the provided geometry file (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crt.Entity.set_pose">
+<span class="sig-name descname"><span class="pre">set_pose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crt.Entity.set_pose" title="Permalink to this definition"></a></dt>
+<dd><p>Set both a new <a class="reference internal" href="rigid_body.html#crt.RigidBody.position" title="crt.RigidBody.position"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a> and <a class="reference internal" href="rigid_body.html#crt.RigidBody.rotation" title="crt.RigidBody.rotation"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rotation</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>ArrayLike</em>) – Position to be applied (xyz)</p></li>
+<li><p><strong>rotation</strong> (<em>ArrayLike</em>) – 3 by 3 Rotation matrix that must obey <span class="math notranslate nohighlight">\(R^T = R^{-1}\)</span> and <span class="math notranslate nohighlight">\(\det(R)=1\)</span></p></li>
+<li><p><strong>cpp</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag for if the underlying C++ body should be updated
+<div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crt.Entity.set_position">
+<span class="sig-name descname"><span class="pre">set_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crt.Entity.set_position" title="Permalink to this definition"></a></dt>
+<dd><p>Set a new <a class="reference internal" href="rigid_body.html#crt.RigidBody.position" title="crt.RigidBody.position"><code class="xref py py-attr docutils literal notranslate"><span class="pre">position</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>ArrayLike</em>) – Position to be applied (xyz)</p></li>
+<li><p><strong>cpp</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag for if the underlying C++ body should be updated
+<div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crt.Entity.set_rotation">
+<span class="sig-name descname"><span class="pre">set_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crt.Entity.set_rotation" title="Permalink to this definition"></a></dt>
+<dd><p>Set a new <a class="reference internal" href="rigid_body.html#crt.RigidBody.rotation" title="crt.RigidBody.rotation"><code class="xref py py-attr docutils literal notranslate"><span class="pre">rotation</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rotation</strong> (<em>ArrayLike</em>) – 3 by 3 Rotation matrix that must obey <span class="math notranslate nohighlight">\(R^T = R^{-1}\)</span> and <span class="math notranslate nohighlight">\(\det(R)=1\)</span></p></li>
+<li><p><strong>cpp</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag for if the underlying C++ body should be updated
+<div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crt.Entity.set_scale">
+<span class="sig-name descname"><span class="pre">set_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crt.Entity.set_scale" title="Permalink to this definition"></a></dt>
+<dd><p>Set a new <a class="reference internal" href="rigid_body.html#crt.RigidBody.scale" title="crt.RigidBody.scale"><code class="xref py py-attr docutils literal notranslate"><span class="pre">scale</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> (<em>float</em>) – Scale to be applied</p></li>
+<li><p><strong>cpp</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag for if the underlying C++ body should be updated
+<div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crt.Entity.spice_pose">
+<span class="sig-name descname"><span class="pre">spice_pose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crt.Entity.spice_pose" title="Permalink to this definition"></a></dt>
+<dd><p>Set both a new position and rotation for a given ephemeris time using SPICE</p>
+<p>The position is updated using <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>, where the <a class="reference internal" href="rigid_body.html#crt.RigidBody.name" title="crt.RigidBody.name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code></a> is used as
+the <code class="code docutils literal notranslate"><span class="pre">targ</span></code> argument, <a class="reference internal" href="rigid_body.html#crt.RigidBody.ref" title="crt.RigidBody.ref"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ref</span></code></a> is used as the <code class="code docutils literal notranslate"><span class="pre">ref</span></code> argument,
+<a class="reference internal" href="rigid_body.html#crt.RigidBody.abcorr" title="crt.RigidBody.abcorr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">abcorr</span></code></a> is used as the <code class="code docutils literal notranslate"><span class="pre">abcorr</span></code> argument, and <a class="reference internal" href="rigid_body.html#crt.RigidBody.origin" title="crt.RigidBody.origin"><code class="xref py py-attr docutils literal notranslate"><span class="pre">origin</span></code></a> is
+used as the <code class="code docutils literal notranslate"><span class="pre">obs</span></code> argument.</p>
+<p>The rotation is updated using <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.pxform()</span></code>, where the <a class="reference internal" href="rigid_body.html#crt.RigidBody.ref" title="crt.RigidBody.ref"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ref</span></code></a> is used as
+the <code class="code docutils literal notranslate"><span class="pre">from</span></code> argument, and <a class="reference internal" href="rigid_body.html#crt.RigidBody.frame" title="crt.RigidBody.frame"><code class="xref py py-attr docutils literal notranslate"><span class="pre">frame</span></code></a> is used as the <code class="code docutils literal notranslate"><span class="pre">to</span></code> argumnet.</p>
+<p>Please refer to the
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html">spkpos</a> or
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/pxform_c.html">pxform</a> documentation for more
+information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>et</strong> (<em>float</em>) – Ephemeris time (seconds since the J2000 epoch), also known as Barycentric Dynamical Time</p></li>
+<li><p><strong>cpp</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag for if the underlying C++ body should be updated
+<div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crt.Entity.spice_position">
+<span class="sig-name descname"><span class="pre">spice_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crt.Entity.spice_position" title="Permalink to this definition"></a></dt>
+<dd><p>Set new position for a given ephemeris time using SPICE</p>
+<p>This is done using <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>, where the <a class="reference internal" href="rigid_body.html#crt.RigidBody.name" title="crt.RigidBody.name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code></a> is used as the <code class="code docutils literal notranslate"><span class="pre">targ</span></code>
+argument, <a class="reference internal" href="rigid_body.html#crt.RigidBody.ref" title="crt.RigidBody.ref"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ref</span></code></a> is used as the <code class="code docutils literal notranslate"><span class="pre">ref</span></code> argument, <a class="reference internal" href="rigid_body.html#crt.RigidBody.abcorr" title="crt.RigidBody.abcorr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">abcorr</span></code></a> is
+used as the <code class="code docutils literal notranslate"><span class="pre">abcorr</span></code> argument, and <a class="reference internal" href="rigid_body.html#crt.RigidBody.origin" title="crt.RigidBody.origin"><code class="xref py py-attr docutils literal notranslate"><span class="pre">origin</span></code></a> is used as the <code class="code docutils literal notranslate"><span class="pre">obs</span></code> argument.
+Please refer to the
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html">spkpos</a> documentation
+for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>et</strong> (<em>float</em>) – Ephemeris time (seconds since the J2000 epoch), also known as Barycentric Dynamical Time</p></li>
+<li><p><strong>cpp</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag for if the underlying C++ body should be updated
+<div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crt.Entity.spice_rotation">
+<span class="sig-name descname"><span class="pre">spice_rotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">et</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crt.Entity.spice_rotation" title="Permalink to this definition"></a></dt>
+<dd><p>Set new rotation for a given ephemeris time using SPICE</p>
+<p>This is done using <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.pxform()</span></code>, where the <a class="reference internal" href="rigid_body.html#crt.RigidBody.ref" title="crt.RigidBody.ref"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ref</span></code></a> is used as the <code class="code docutils literal notranslate"><span class="pre">from</span></code>
+argument, and <a class="reference internal" href="rigid_body.html#crt.RigidBody.frame" title="crt.RigidBody.frame"><code class="xref py py-attr docutils literal notranslate"><span class="pre">frame</span></code></a> is used as the <code class="code docutils literal notranslate"><span class="pre">to</span></code> argumnet.  Please refer to the
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/pxform_c.html">pxform</a> documentation
+for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>et</strong> (<em>float</em>) – Ephemeris time (seconds since the J2000 epoch), also known as Barycentric Dynamical Time</p></li>
+<li><p><strong>cpp</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag for if the underlying C++ body should be updated
+<div class="default-value-section"> <span class="default-value-label">Default:</span> <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.color">
+<span class="sig-name descname"><span class="pre">color</span></span><a class="headerlink" href="#crt.Entity.color" title="Permalink to this definition"></a></dt>
+<dd><p>RGB Color code for the geometry (<code class="code docutils literal notranslate"><span class="pre">ArrayLike</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.scale">
+<span class="sig-name descname"><span class="pre">scale</span></span><a class="headerlink" href="#crt.Entity.scale" title="Permalink to this definition"></a></dt>
+<dd><p>Scale of the body (<code class="code docutils literal notranslate"><span class="pre">float</span></code>)</p>
+<p>This attribute is used by the subclass <a class="reference internal" href="#crt.Entity" title="crt.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a> and describes how the <a class="reference internal" href="#crt.Entity" title="crt.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a>
+geometry is scaled.  It can be modified directly using <a class="reference internal" href="#crt.Entity.set_scale" title="crt.Entity.set_scale"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_scale()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.position">
+<span class="sig-name descname"><span class="pre">position</span></span><a class="headerlink" href="#crt.Entity.position" title="Permalink to this definition"></a></dt>
+<dd><p>Position of the body (<code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of shape <code class="code docutils literal notranslate"><span class="pre">(3,)</span></code>)</p>
+<p>This attribute is used by the subclass <a class="reference internal" href="#crt.Entity" title="crt.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a>, as well as all <a class="reference internal" href="cameras.html#crt.cameras.Camera" title="crt.cameras.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> and
+<a class="reference internal" href="lights.html#crt.lights.Light" title="crt.lights.Light"><code class="xref py py-class docutils literal notranslate"><span class="pre">Light</span></code></a> classes.  It describes how the body is translated in space.  It can be modified directly
+using either <a class="reference internal" href="#crt.Entity.set_position" title="crt.Entity.set_position"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_position()</span></code></a> or <a class="reference internal" href="#crt.Entity.set_pose" title="crt.Entity.set_pose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_pose()</span></code></a>.  Alternatively, it can be modified using
+<a class="reference internal" href="#crt.Entity.spice_position" title="crt.Entity.spice_position"><code class="xref py py-meth docutils literal notranslate"><span class="pre">spice_position()</span></code></a> which uses predefined SPICE ephemerides to calculate a position for a
+given ephemeris time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.rotation">
+<span class="sig-name descname"><span class="pre">rotation</span></span><a class="headerlink" href="#crt.Entity.rotation" title="Permalink to this definition"></a></dt>
+<dd><p>Rotation of the body (<code class="code docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> of shape <code class="code docutils literal notranslate"><span class="pre">(3,3)</span></code>)</p>
+<p>This attribute is used by the subclasses <a class="reference internal" href="#crt.Entity" title="crt.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a>, as well as all <a class="reference internal" href="cameras.html#crt.cameras.Camera" title="crt.cameras.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> and
+<a class="reference internal" href="lights.html#crt.lights.Light" title="crt.lights.Light"><code class="xref py py-class docutils literal notranslate"><span class="pre">Light</span></code></a> classes.  It describes how the body is translated in space.  It can be modified directly
+using either <a class="reference internal" href="#crt.Entity.set_rotation" title="crt.Entity.set_rotation"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_rotation()</span></code></a> or <a class="reference internal" href="#crt.Entity.set_pose" title="crt.Entity.set_pose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_pose()</span></code></a>.  Alternatively, it can be modified using
+<a class="reference internal" href="#crt.Entity.spice_rotation" title="crt.Entity.spice_rotation"><code class="xref py py-meth docutils literal notranslate"><span class="pre">spice_rotation()</span></code></a> which uses predefined SPICE ephemerides to calculate a rotation for a
+given ephemeris time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#crt.Entity.name" title="Permalink to this definition"></a></dt>
+<dd><p>NAIF name or ID code for the body (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p>
+<p>This attribute can be used by the subclasses <a class="reference internal" href="#crt.Entity" title="crt.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a>, as well as all <a class="reference internal" href="cameras.html#crt.cameras.Camera" title="crt.cameras.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> and
+<a class="reference internal" href="lights.html#crt.lights.Light" title="crt.lights.Light"><code class="xref py py-class docutils literal notranslate"><span class="pre">Light</span></code></a> classes.  It is used by the SPICE utility, <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>, as the name for
+the celestial body whose position will be used as the position of the body.  This corresponds to
+the <code class="code docutils literal notranslate"><span class="pre">targ</span></code> argument to <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>.  Please refer to the
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html">spkpos</a> documentation
+for more information.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.frame">
+<span class="sig-name descname"><span class="pre">frame</span></span><a class="headerlink" href="#crt.Entity.frame" title="Permalink to this definition"></a></dt>
+<dd><p>NAIF reference frame name for the body (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p>
+<p>This attribute can be used by the subclasses <a class="reference internal" href="#crt.Entity" title="crt.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a>, as well as all <a class="reference internal" href="cameras.html#crt.cameras.Camera" title="crt.cameras.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> and
+<a class="reference internal" href="lights.html#crt.lights.Light" title="crt.lights.Light"><code class="xref py py-class docutils literal notranslate"><span class="pre">Light</span></code></a> classes.  It is used by the SPICE utility, <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.pxform()</span></code>, as the name for
+the reference frame whose orientation will be used as the rotation of the body.  This corresponds to
+the <code class="code docutils literal notranslate"><span class="pre">to</span></code> argument to <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.pxform()</span></code>.  Please refer to the
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/pxform_c.html">pxform</a> documentation
+for more information.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.origin">
+<span class="sig-name descname"><span class="pre">origin</span></span><a class="headerlink" href="#crt.Entity.origin" title="Permalink to this definition"></a></dt>
+<dd><p>NAIF name or ID code for the reference frame origin (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p>
+<p>This attribute can be used by the subclasses <a class="reference internal" href="#crt.Entity" title="crt.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a>, as well as all <a class="reference internal" href="cameras.html#crt.cameras.Camera" title="crt.cameras.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> and
+<a class="reference internal" href="lights.html#crt.lights.Light" title="crt.lights.Light"><code class="xref py py-class docutils literal notranslate"><span class="pre">Light</span></code></a> classes.  It is used by the SPICE utility, <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>, as the name for
+the celestial body whose position will be used as the origin of the reference frame.  This corresponds to
+the <code class="code docutils literal notranslate"><span class="pre">obs</span></code> argument to <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>.  Please refer to the
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html">spkpos</a> documentation
+for more information.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.ref">
+<span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#crt.Entity.ref" title="Permalink to this definition"></a></dt>
+<dd><p>NAIF reference frame name (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p>
+<p>This attribute can be used by the subclasses <a class="reference internal" href="#crt.Entity" title="crt.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a>, as well as all <a class="reference internal" href="cameras.html#crt.cameras.Camera" title="crt.cameras.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> and
+<a class="reference internal" href="lights.html#crt.lights.Light" title="crt.lights.Light"><code class="xref py py-class docutils literal notranslate"><span class="pre">Light</span></code></a> classes.  It is used by both the SPICE utilities, <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.pxform()</span></code> and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>, as the name for the reference frame against in which positions and
+rotations will be calculated.  This corresponds to the <code class="code docutils literal notranslate"><span class="pre">ref</span></code> argument to both <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>
+and <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.pxform()</span></code>.  Please refer to the
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html">spkpos</a> or
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/pxform_c.html">pxform</a> documentation for more
+information.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.abcorr">
+<span class="sig-name descname"><span class="pre">abcorr</span></span><a class="headerlink" href="#crt.Entity.abcorr" title="Permalink to this definition"></a></dt>
+<dd><p>Aberration correction flag (<code class="code docutils literal notranslate"><span class="pre">str</span></code>)</p>
+<p>This attribute is used by by the SPICE utility, <code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>, as an indication of what
+light time correction should be used.  This corresponds to the <code class="code docutils literal notranslate"><span class="pre">abcorr</span></code> argument to
+<code class="xref py py-func docutils literal notranslate"><span class="pre">spiceypy.spkpos()</span></code>.  Please refer to the
+<a class="reference external" href="https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html">spkpos</a> documentation
+for more information.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="crt.Entity.smooth_shading">
+<span class="sig-name descname"><span class="pre">smooth_shading</span></span><a class="headerlink" href="#crt.Entity.smooth_shading" title="Permalink to this definition"></a></dt>
+<dd><p>Flag to enable smooth shading via vertex normal interpolation (<code class="code docutils literal notranslate"><span class="pre">bool</span></code>)</p>
+</dd></dl>
+
+</dd></dl>
+
+<ul class="simple">
+<li><p><a class="reference internal" href="../genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="../py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="../search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../ceres_rt.html" class="btn btn-neutral float-left" title="Python API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cameras.html" class="btn btn-neutral float-right" title="Cameras" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Chris Gnam.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

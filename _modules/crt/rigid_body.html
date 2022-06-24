@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crt.rigid_body &mdash; CERES Ray Tracer v0.6a documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/license_info.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/ceres_white_long.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demos.html">Demos</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ceres_rt.html">Python API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/entity.html">Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/cameras.html">Cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/cameras/pinhole_camera.html">Pinhole Camera</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/lights.html">Lights</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/lights/point_light.html">Point Light</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/lights/square_light.html">Square Light</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rendering.html">Dynamic Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/body_fixed.html">Body Fixed Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/body_fixed/body_fixed_entity.html">Body Fixed Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../modules/body_fixed/body_fixed_group.html">Body Fixed Group</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rotations.html">Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../modules/rigid_body.html">Rigid Body</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ceres-navigation/ceres-raytracer">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/ceres-raytracer">PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ceresnavigation.org">Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CERES Ray Tracer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>crt.rigid_body</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for crt.rigid_body</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">ArrayLike</span>
+
+<span class="kn">from</span> <span class="nn">spiceypy</span> <span class="kn">import</span> <span class="n">spkpos</span><span class="p">,</span> <span class="n">pxform</span>
+
+<span class="kn">from</span> <span class="nn">crt._validate_values</span> <span class="kn">import</span> <span class="n">validate_scale</span><span class="p">,</span> <span class="n">validate_position</span><span class="p">,</span> <span class="n">validate_rotation</span>
+
+<div class="viewcode-block" id="RigidBody"><a class="viewcode-back" href="../../modules/rigid_body.html#crt.RigidBody">[docs]</a><span class="k">class</span> <span class="nc">RigidBody</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The :class:`RigidBody` class is the superclass to :class:`Entity` as well as all :class:`~.cameras.Camera` and</span>
+<span class="sd">    :class:`~.lights.Light` classes.  It provides methods for adjusting the pose (position and orientation)</span>
+<span class="sd">    as well as scale of a body.  Additionally, it provides a SPICE interface allowing for NAIF ephemerides to be</span>
+<span class="sd">    used to control the pose of a body.</span>
+
+<span class="sd">    :param position: Position of the body |default| :code:`np.zeros(3)`</span>
+<span class="sd">    :type position: ArrayLike, optional</span>
+<span class="sd">    :param rotation: Rotation (orientation) of the body as a 3-by-3 rotation matrix </span>
+<span class="sd">                     that must obey both :math:`R^T = R^{-1}` and :math:`\det(R)=1`</span>
+<span class="sd">                     |default| :code:`np.eye(3)`</span>
+<span class="sd">    :type rotation: ArrayLike, optional</span>
+<span class="sd">    :param scale: Scale of the body |default| :code:`1`</span>
+<span class="sd">    :type scale: Union[float, int], optional</span>
+<span class="sd">    :param name: NAIF name or ID code of body |default| :code:`None`</span>
+<span class="sd">    :type name: Union[str, None], optional</span>
+<span class="sd">    :param frame: NAIF reference frame name of body |default| :code:`None`</span>
+<span class="sd">    :type frame: Union[str, None], optional</span>
+<span class="sd">    :param origin: NAIF name or ID code of reference frame origin |default| :code:`&quot;SSB&quot;`</span>
+<span class="sd">    :type origin: Union[str, None], optional</span>
+<span class="sd">    :param ref: NAIF reference frame name of reference frame |default| :code:`&quot;J2000&quot;`</span>
+<span class="sd">    :type ref: Union[str, None], optional</span>
+<span class="sd">    :param abcorr: Aberration correction flag |default| :code:`&quot;NONE&quot;`</span>
+<span class="sd">    :type abcorr: Union[str, None], optional</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> 
+                 <span class="n">rotation</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                 <span class="n">name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">origin</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;SSB&quot;</span><span class="p">,</span> 
+                 <span class="n">ref</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;J2000&quot;</span><span class="p">,</span> <span class="n">abcorr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;NONE&quot;</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">validate_scale</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scale of the body (:code:`float`)</span>
+<span class="sd">        </span>
+<span class="sd">        This attribute is used by the subclass :class:`~.Entity` and describes how the :class:`~.Entity` </span>
+<span class="sd">        geometry is scaled.  It can be modified directly using :meth:`set_scale`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">validate_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Position of the body (:code:`numpy.ndarray` of shape :code:`(3,)`)</span>
+<span class="sd">        </span>
+<span class="sd">        This attribute is used by the subclass :class:`~.Entity`, as well as all :class:`~.cameras.Camera` and </span>
+<span class="sd">        :class:`~.lights.Light` classes.  It describes how the body is translated in space.  It can be modified directly </span>
+<span class="sd">        using either :meth:`set_position` or :meth:`set_pose`.  Alternatively, it can be modified using </span>
+<span class="sd">        :meth:`spice_position` which uses predefined SPICE ephemerides to calculate a position for a </span>
+<span class="sd">        given ephemeris time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">validate_rotation</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rotation of the body (:code:`numpy.ndarray` of shape :code:`(3,3)`)</span>
+<span class="sd">        </span>
+<span class="sd">        This attribute is used by the subclasses :class:`~.Entity`, as well as all :class:`~.cameras.Camera` and </span>
+<span class="sd">        :class:`~.lights.Light` classes.  It describes how the body is translated in space.  It can be modified directly </span>
+<span class="sd">        using either :meth:`set_rotation` or :meth:`set_pose`.  Alternatively, it can be modified using </span>
+<span class="sd">        :meth:`spice_rotation` which uses predefined SPICE ephemerides to calculate a rotation for a </span>
+<span class="sd">        given ephemeris time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        NAIF name or ID code for the body (:code:`str`)</span>
+<span class="sd">        </span>
+<span class="sd">        This attribute can be used by the subclasses :class:`~.Entity`, as well as all :class:`~.cameras.Camera` and </span>
+<span class="sd">        :class:`~.lights.Light` classes.  It is used by the SPICE utility, :func:`spiceypy.spkpos`, as the name for </span>
+<span class="sd">        the celestial body whose position will be used as the position of the body.  This corresponds to </span>
+<span class="sd">        the :code:`targ` argument to :func:`spiceypy.spkpos`.  Please refer to the </span>
+<span class="sd">        `spkpos &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html&gt;`_ documentation </span>
+<span class="sd">        for more information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        NAIF reference frame name for the body (:code:`str`)</span>
+<span class="sd">        </span>
+<span class="sd">        This attribute can be used by the subclasses :class:`~.Entity`, as well as all :class:`~.cameras.Camera` and </span>
+<span class="sd">        :class:`~.lights.Light` classes.  It is used by the SPICE utility, :func:`spiceypy.pxform`, as the name for </span>
+<span class="sd">        the reference frame whose orientation will be used as the rotation of the body.  This corresponds to </span>
+<span class="sd">        the :code:`to` argument to :func:`spiceypy.pxform`.  Please refer to the </span>
+<span class="sd">        `pxform &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/pxform_c.html&gt;`_ documentation </span>
+<span class="sd">        for more information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">origin</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        NAIF name or ID code for the reference frame origin (:code:`str`)</span>
+<span class="sd">        </span>
+<span class="sd">        This attribute can be used by the subclasses :class:`~.Entity`, as well as all :class:`~.cameras.Camera` and </span>
+<span class="sd">        :class:`~.lights.Light` classes.  It is used by the SPICE utility, :func:`spiceypy.spkpos`, as the name for </span>
+<span class="sd">        the celestial body whose position will be used as the origin of the reference frame.  This corresponds to </span>
+<span class="sd">        the :code:`obs` argument to :func:`spiceypy.spkpos`.  Please refer to the </span>
+<span class="sd">        `spkpos &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html&gt;`_ documentation </span>
+<span class="sd">        for more information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        NAIF reference frame name (:code:`str`)</span>
+<span class="sd">        </span>
+<span class="sd">        This attribute can be used by the subclasses :class:`~.Entity`, as well as all :class:`~.cameras.Camera` and </span>
+<span class="sd">        :class:`~.lights.Light` classes.  It is used by both the SPICE utilities, :func:`spiceypy.pxform` and </span>
+<span class="sd">        :func:`spiceypy.spkpos`, as the name for the reference frame against in which positions and</span>
+<span class="sd">        rotations will be calculated.  This corresponds to the :code:`ref` argument to both :func:`spiceypy.spkpos`</span>
+<span class="sd">        and :func:`spiceypy.pxform`.  Please refer to the </span>
+<span class="sd">        `spkpos &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html&gt;`_ or </span>
+<span class="sd">        `pxform &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/pxform_c.html&gt;`_ documentation for more </span>
+<span class="sd">        information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">abcorr</span> <span class="o">=</span> <span class="n">abcorr</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aberration correction flag (:code:`str`)</span>
+
+<span class="sd">        This attribute is used by by the SPICE utility, :func:`spiceypy.spkpos`, as an indication of what</span>
+<span class="sd">        light time correction should be used.  This corresponds to the :code:`abcorr` argument to </span>
+<span class="sd">        :func:`spiceypy.spkpos`.  Please refer to the </span>
+<span class="sd">        `spkpos &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html&gt;`_ documentation </span>
+<span class="sd">        for more information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RigidBody.set_scale"><a class="viewcode-back" href="../../modules/rigid_body.html#crt.RigidBody.set_scale">[docs]</a>    <span class="k">def</span> <span class="nf">set_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cpp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set a new :attr:`~.RigidBody.scale`</span>
+
+<span class="sd">        :param scale: Scale to be applied</span>
+<span class="sd">        :type scale: float</span>
+<span class="sd">        :param cpp: Flag for if the underlying C++ body should be updated </span>
+<span class="sd">                    |default| :code:`True`</span>
+<span class="sd">        :type cpp: bool, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">validate_scale</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cpp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RigidBody.set_position"><a class="viewcode-back" href="../../modules/rigid_body.html#crt.RigidBody.set_position">[docs]</a>    <span class="k">def</span> <span class="nf">set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">cpp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set a new :attr:`~.RigidBody.position`</span>
+
+<span class="sd">        :param position: Position to be applied (xyz)</span>
+<span class="sd">        :type position: ArrayLike</span>
+<span class="sd">        :param cpp: Flag for if the underlying C++ body should be updated </span>
+<span class="sd">                    |default| :code:`True`</span>
+<span class="sd">        :type cpp: bool, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">validate_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cpp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RigidBody.set_rotation"><a class="viewcode-back" href="../../modules/rigid_body.html#crt.RigidBody.set_rotation">[docs]</a>    <span class="k">def</span> <span class="nf">set_rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">cpp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set a new :attr:`~.RigidBody.rotation`</span>
+
+<span class="sd">        :param rotation: 3 by 3 Rotation matrix that must obey :math:`R^T = R^{-1}` and :math:`\det(R)=1`</span>
+<span class="sd">        :type rotation: ArrayLike</span>
+<span class="sd">        :param cpp: Flag for if the underlying C++ body should be updated </span>
+<span class="sd">                    |default| :code:`True`</span>
+<span class="sd">        :type cpp: bool, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">validate_rotation</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cpp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_rotation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RigidBody.set_pose"><a class="viewcode-back" href="../../modules/rigid_body.html#crt.RigidBody.set_pose">[docs]</a>    <span class="k">def</span> <span class="nf">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">rotation</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">cpp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set both a new :attr:`~.RigidBody.position` and :attr:`~.RigidBody.rotation`</span>
+
+<span class="sd">        :param position: Position to be applied (xyz)</span>
+<span class="sd">        :type position: ArrayLike</span>
+<span class="sd">        :param rotation: 3 by 3 Rotation matrix that must obey :math:`R^T = R^{-1}` and :math:`\det(R)=1`</span>
+<span class="sd">        :type rotation: ArrayLike</span>
+<span class="sd">        :param cpp: Flag for if the underlying C++ body should be updated </span>
+<span class="sd">                    |default| :code:`True`</span>
+<span class="sd">        :type cpp: bool, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">validate_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">validate_rotation</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cpp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RigidBody.spice_position"><a class="viewcode-back" href="../../modules/rigid_body.html#crt.RigidBody.spice_position">[docs]</a>    <span class="k">def</span> <span class="nf">spice_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">et</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cpp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set new position for a given ephemeris time using SPICE</span>
+<span class="sd">        </span>
+<span class="sd">        This is done using :func:`spiceypy.spkpos`, where the :attr:`~.RigidBody.name` is used as the :code:`targ` </span>
+<span class="sd">        argument, :attr:`~.RigidBody.ref` is used as the :code:`ref` argument, :attr:`~.RigidBody.abcorr` is </span>
+<span class="sd">        used as the :code:`abcorr` argument, and :attr:`~.RigidBody.origin` is used as the :code:`obs` argument.  </span>
+<span class="sd">        Please refer to the </span>
+<span class="sd">        `spkpos &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html&gt;`_ documentation </span>
+<span class="sd">        for more information.</span>
+
+<span class="sd">        :param et: Ephemeris time (seconds since the J2000 epoch), also known as Barycentric Dynamical Time</span>
+<span class="sd">        :type et: float</span>
+<span class="sd">        :param cpp: Flag for if the underlying C++ body should be updated </span>
+<span class="sd">                    |default| :code:`True`</span>
+<span class="sd">        :type cpp: bool, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">position</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">spkpos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">et</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">abcorr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">validate_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cpp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RigidBody.spice_rotation"><a class="viewcode-back" href="../../modules/rigid_body.html#crt.RigidBody.spice_rotation">[docs]</a>    <span class="k">def</span> <span class="nf">spice_rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">et</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cpp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set new rotation for a given ephemeris time using SPICE</span>
+
+<span class="sd">        This is done using :func:`spiceypy.pxform`, where the :attr:`~.RigidBody.ref` is used as the :code:`from` </span>
+<span class="sd">        argument, and :attr:`~.RigidBody.frame` is used as the :code:`to` argumnet.  Please refer to the </span>
+<span class="sd">        `pxform &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/pxform_c.html&gt;`_ documentation </span>
+<span class="sd">        for more information.</span>
+
+<span class="sd">        :param et: Ephemeris time (seconds since the J2000 epoch), also known as Barycentric Dynamical Time</span>
+<span class="sd">        :type et: float</span>
+<span class="sd">        :param cpp: Flag for if the underlying C++ body should be updated </span>
+<span class="sd">                    |default| :code:`True`</span>
+<span class="sd">        :type cpp: bool, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">pxform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">et</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">validate_rotation</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cpp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RigidBody.spice_pose"><a class="viewcode-back" href="../../modules/rigid_body.html#crt.RigidBody.spice_pose">[docs]</a>    <span class="k">def</span> <span class="nf">spice_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">et</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">cpp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set both a new position and rotation for a given ephemeris time using SPICE</span>
+
+<span class="sd">        The position is updated using :func:`spiceypy.spkpos`, where the :attr:`~.RigidBody.name` is used as </span>
+<span class="sd">        the :code:`targ` argument, :attr:`~.RigidBody.ref` is used as the :code:`ref` argument, </span>
+<span class="sd">        :attr:`~.RigidBody.abcorr` is used as the :code:`abcorr` argument, and :attr:`~.RigidBody.origin` is </span>
+<span class="sd">        used as the :code:`obs` argument.</span>
+
+<span class="sd">        The rotation is updated using :func:`spiceypy.pxform`, where the :attr:`~.RigidBody.ref` is used as </span>
+<span class="sd">        the :code:`from` argument, and :attr:`~.RigidBody.frame` is used as the :code:`to` argumnet.</span>
+<span class="sd">        </span>
+<span class="sd">        Please refer to the </span>
+<span class="sd">        `spkpos &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/spkpos_c.html&gt;`_ or </span>
+<span class="sd">        `pxform &lt;https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/cspice/pxform_c.html&gt;`_ documentation for more </span>
+<span class="sd">        information.</span>
+
+<span class="sd">        :param et: Ephemeris time (seconds since the J2000 epoch), also known as Barycentric Dynamical Time</span>
+<span class="sd">        :type et: float</span>
+<span class="sd">        :param cpp: Flag for if the underlying C++ body should be updated </span>
+<span class="sd">                    |default| :code:`True`</span>
+<span class="sd">        :type cpp: bool, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">position</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">spkpos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">et</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">abcorr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span>
+        <span class="n">rotation</span>   <span class="o">=</span> <span class="n">pxform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">et</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">validate_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">validate_rotation</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cpp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cpp</span><span class="o">.</span><span class="n">set_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Chris Gnam.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

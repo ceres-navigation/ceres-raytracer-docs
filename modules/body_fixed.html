@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Overview: module code &mdash; CERES Ray Tracer v0.6a documentation</title>
+  <title>Body Fixed Rendering &mdash; CERES Ray Tracer v0.6a documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/license_info.css" type="text/css" />
@@ -17,7 +17,9 @@
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Body Fixed Entity" href="body_fixed/body_fixed_entity.html" />
+    <link rel="prev" title="Dynamic Rendering" href="rendering.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,26 +44,26 @@
 <li class="toctree-l1"><a class="reference internal" href="../demos.html">Demos</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../ceres_rt.html">Python API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../modules/entity.html">Entity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../modules/cameras.html">Cameras</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/cameras/pinhole_camera.html">Pinhole Camera</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../ceres_rt.html">Python API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="entity.html">Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cameras.html">Cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cameras/pinhole_camera.html">Pinhole Camera</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../modules/lights.html">Lights</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/lights/point_light.html">Point Light</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/lights/square_light.html">Square Light</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lights.html">Lights</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lights/point_light.html">Point Light</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lights/square_light.html">Square Light</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../modules/rendering.html">Dynamic Rendering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../modules/body_fixed.html">Body Fixed Rendering</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/body_fixed/body_fixed_entity.html">Body Fixed Entity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/body_fixed/body_fixed_group.html">Body Fixed Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering.html">Dynamic Rendering</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Body Fixed Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="body_fixed/body_fixed_entity.html">Body Fixed Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="body_fixed/body_fixed_group.html">Body Fixed Group</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../modules/rotations.html">Rotations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../modules/rigid_body.html">Rigid Body</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rotations.html">Rotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rigid_body.html">Rigid Body</a></li>
 </ul>
 </li>
 </ul>
@@ -87,8 +89,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Overview: module code</li>
+          <li><a href="../ceres_rt.html">Python API Reference</a> &raquo;</li>
+      <li>Body Fixed Rendering</li>
       <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/body_fixed.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -96,19 +100,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="crt/body_fixed.html">crt.body_fixed</a></li>
-<li><a href="crt/cameras.html">crt.cameras</a></li>
-<li><a href="crt/entity.html">crt.entity</a></li>
-<li><a href="crt/lights.html">crt.lights</a></li>
-<li><a href="crt/rendering.html">crt.rendering</a></li>
-<li><a href="crt/rigid_body.html">crt.rigid_body</a></li>
-<li><a href="crt/rotations.html">crt.rotations</a></li>
+  <div class="section" id="body-fixed-rendering">
+<h1>Body Fixed Rendering<a class="headerlink" href="#body-fixed-rendering" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<ul class="simple">
+<li><p><a class="reference internal" href="../genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="../py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="../search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
+</div>
+
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rendering.html" class="btn btn-neutral float-left" title="Dynamic Rendering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="body_fixed/body_fixed_entity.html" class="btn btn-neutral float-right" title="Body Fixed Entity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
